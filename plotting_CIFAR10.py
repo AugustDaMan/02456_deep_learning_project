@@ -101,7 +101,8 @@ def plot_samples(ax, x):
     dim = 32
     x = x.to('cpu')
     nrow = int(np.sqrt(x.size(0)))
-    x_grid = make_grid(x.view(-1, 1, dim, dim), nrow=nrow).permute(1, 2, 0)
+    # x_grid = make_grid(x.view(-1, 1, dim, dim), nrow=nrow).permute(1, 2, 0)
+    x_grid = make_grid(x.view(-1, 3, dim, dim), nrow=nrow).permute(1, 2, 0)
     ax.imshow(x_grid)
     ax.axis('off')
 
@@ -120,7 +121,8 @@ def plot_interpolations(ax, vae):
     px = vae.observation_model(zs.view(nrow * nsteps, -1))
     x = px.sample()
     x = x.to('cpu')
-    x_grid = make_grid(x.view(-1, 1, dim, dim), nrow=nrow).permute(1, 2, 0)
+    # x_grid = make_grid(x.view(-1, 1, dim, dim), nrow=nrow).permute(1, 2, 0)
+    x_grid = make_grid(x.view(-1, 3, dim, dim), nrow=nrow).permute(1, 2, 0)
     ax.imshow(x_grid)
     ax.axis('off')
 
@@ -135,7 +137,8 @@ def plot_grid(ax, vae):
     px = vae.observation_model(zs.view(nrow * nrow, 2))
     x = px.sample()
     x = x.to('cpu')
-    x_grid = make_grid(x.view(-1, 1, dim, dim), nrow=nrow).permute(1, 2, 0)
+    # x_grid = make_grid(x.view(-1, 1, dim, dim), nrow=nrow).permute(1, 2, 0)
+    x_grid = make_grid(x.view(-1, 3, dim, dim), nrow=nrow).permute(1, 2, 0)
     ax.imshow(x_grid)
     ax.axis('off')
 

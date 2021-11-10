@@ -68,25 +68,36 @@ def plot_autoencoder_stats(
     columns = batch_size // rows
     
     dim = 32
-    canvas = np.zeros((dim * rows, columns * dim))
+    canvas = np.zeros((dim * rows, columns * dim, 3))
     for i in range(rows):
         for j in range(columns):
             idx = i % columns + rows * j
-            canvas[i * dim:(i + 1) * dim, j * dim:(j + 1) * dim] = x[idx].reshape((dim, dim, 3))
-    ax.imshow(canvas, cmap='gray')
+            r = x[idx][0:1024].view(32, 32)
+            g = x[idx][1024:1024 * 2].view(32, 32)
+            b = x[idx][1024 * 2:1024 * 3].view(32, 32)
+            im = torch.stack((r, g, b), dim=2)
+
+            #im = x[idx].reshape((dim, dim, 3))
+            canvas[i * dim:(i + 1) * dim, j * dim:(j + 1) * dim, :] = im.cpu().detach().numpy()
+    ax.imshow(canvas)
 
     # Reconstructions
     ax = axarr[1, 1]
     ax.set_title('Reconstructions')
     ax.axis('off')
 
-    canvas = np.zeros((dim * rows, columns * dim))
+    canvas = np.zeros((dim * rows, columns * dim, 3))
     for i in range(rows):
         for j in range(columns):
             idx = i % columns + rows * j
-            canvas[i * dim:(i + 1) * dim, j * dim:(j + 1) * dim] = x_hat[idx].reshape((dim, dim, 3))
+            r = x[idx][0:1024].view(32, 32)
+            g = x[idx][1024:1024 * 2].view(32, 32)
+            b = x[idx][1024 * 2:1024 * 3].view(32, 32)
+            im = torch.stack((r, g, b), dim=2)
 
-    ax.imshow(canvas, cmap='gray')
+            canvas[i * dim:(i + 1) * dim, j * dim:(j + 1) * dim, :] = im.cpu().detach().numpy()
+
+    ax.imshow(canvas)
 
     tmp_img = "tmp_ae_out.png"
     plt.savefig(tmp_img)
@@ -101,8 +112,8 @@ def plot_samples(ax, x):
     dim = 32
     x = x.to('cpu')
     nrow = int(np.sqrt(x.size(0)))
-    # x_grid = make_grid(x.view(-1, 1, dim, dim), nrow=nrow).permute(1, 2, 0)
-    x_grid = make_grid(x.view(-1, 3, dim, dim), nrow=nrow).permute(1, 2, 0)
+    #x_grid = make_grid(x.view(-1, 1, dim, dim), nrow=nrow).permute(1, 2, 0)
+    x_grid = make_grid(x.view(-1, 3, dim, dim), nrow=nrow).permute(1, 2, 0)  # Three channels
     ax.imshow(x_grid)
     ax.axis('off')
 

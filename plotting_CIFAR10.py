@@ -53,8 +53,8 @@ def plot_autoencoder_stats(
         z = dimensionality_reduction_op(z)
 
     colors = iter(plt.get_cmap('Set1')(np.linspace(0, 1.0, len(classes))))
-    for c in classes:
-        ax.scatter(*z[y.numpy() == c].T, c=next(colors), marker='o')
+    #for c in classes:
+    #    ax.scatter(*z[y.numpy() == c].T, c=next(colors), marker='o')
 
     ax.legend(classes)
 
@@ -66,7 +66,7 @@ def plot_autoencoder_stats(
     rows = 8
     batch_size = x.size(0)
     columns = batch_size // rows
-    
+
     dim = 32
     canvas = np.zeros((dim * rows, columns * dim, 3))
     for i in range(rows):
@@ -86,13 +86,13 @@ def plot_autoencoder_stats(
     ax.set_title('Reconstructions')
     ax.axis('off')
 
-    canvas = np.zeros((dim * rows, columns * dim, 3))
+    #canvas = np.zeros((dim * rows, columns * dim, 3))
     for i in range(rows):
         for j in range(columns):
             idx = i % columns + rows * j
-            r = x[idx][0:1024].view(32, 32)
-            g = x[idx][1024:1024 * 2].view(32, 32)
-            b = x[idx][1024 * 2:1024 * 3].view(32, 32)
+            r = x_hat[idx][0:1024].view(32, 32)
+            g = x_hat[idx][1024:1024 * 2].view(32, 32)
+            b = x_hat[idx][1024 * 2:1024 * 3].view(32, 32)
             im = torch.stack((r, g, b), dim=2)
 
             canvas[i * dim:(i + 1) * dim, j * dim:(j + 1) * dim, :] = im.cpu().detach().numpy()

@@ -52,11 +52,11 @@ def plot_autoencoder_stats(
     if dimensionality_reduction_op is not None:
         z = dimensionality_reduction_op(z)
 
-    colors = iter(plt.get_cmap('Set1')(np.linspace(0, 1.0, len(classes))))
+    #colors = iter(plt.get_cmap('Set1')(np.linspace(0, 1.0, len(classes))))
     #for c in classes:
     #    ax.scatter(*z[y.numpy() == c].T, c=next(colors), marker='o')
 
-    ax.legend(classes)
+    #ax.legend(classes)
 
     # Inputs
     ax = axarr[1, 0]

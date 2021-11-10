@@ -72,7 +72,7 @@ def plot_autoencoder_stats(
     for i in range(rows):
         for j in range(columns):
             idx = i % columns + rows * j
-            canvas[i * dim:(i + 1) * dim, j * dim:(j + 1) * dim] = x[idx].reshape((dim, dim))
+            canvas[i * dim:(i + 1) * dim, j * dim:(j + 1) * dim] = x[idx].reshape((dim, dim, 3))
     ax.imshow(canvas, cmap='gray')
 
     # Reconstructions
@@ -84,7 +84,7 @@ def plot_autoencoder_stats(
     for i in range(rows):
         for j in range(columns):
             idx = i % columns + rows * j
-            canvas[i * dim:(i + 1) * dim, j * dim:(j + 1) * dim] = x_hat[idx].reshape((dim, dim))
+            canvas[i * dim:(i + 1) * dim, j * dim:(j + 1) * dim] = x_hat[idx].reshape((dim, dim, 3))
 
     ax.imshow(canvas, cmap='gray')
 

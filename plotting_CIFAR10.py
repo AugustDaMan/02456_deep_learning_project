@@ -94,9 +94,7 @@ def plot_autoencoder_stats(
             g = x_hat[idx][1024:1024 * 2].view(32, 32)
             b = x_hat[idx][1024 * 2:1024 * 3].view(32, 32)
             im = torch.stack((r, g, b), dim=2)
-
             canvas[i * dim:(i + 1) * dim, j * dim:(j + 1) * dim, :] = im.cpu().detach().numpy()
-
     ax.imshow(canvas)
 
     tmp_img = "tmp_ae_out.png"

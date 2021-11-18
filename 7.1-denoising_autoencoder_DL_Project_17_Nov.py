@@ -465,7 +465,7 @@ print(f"mm.shape = {mm.shape}")
 from sklearn.manifold import TSNE
 from sklearn.decomposition import PCA
 
-num_epochs = 3
+num_epochs = 10
 
 train_loss = []
 valid_loss = []
